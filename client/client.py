@@ -16,12 +16,25 @@ from explosion import *
 
 BLOCKS = [
     "grass",
+    'stone',
     "leave",
     "wood",
+    'brick',
     "sand",
     "glass",
     "tnt"
 ]
+
+BLOCKS_class = {
+    "grass":Grass,
+    'stone':Stone,
+    "leave":Leave,
+    "wood":Wood,
+    'brick':Brick,
+    "sand":Sand,
+    "glass":Glass,
+    "tnt":Tnt
+}
 
 App = Ursina()
 Client = UrsinaNetworkingClient("localhost", 25565)
@@ -54,12 +67,14 @@ def onReplicatedVariableCreated(variable):
     variable_type = variable.content["type"]
     if variable_type == "block":
         block_type = variable.content["block_type"]
-        if block_type == "grass": new_block = Grass()
-        elif block_type == "leave": new_block = Leave()
-        elif block_type == "wood": new_block = Wood()
-        elif block_type == "sand": new_block = Sand()
-        elif block_type == "glass": new_block = Glass()
-        elif block_type == "tnt": new_block = Tnt()
+        if block_type in BLOCKS:
+            new_block=BLOCKS_class[block_type]()
+        # if block_type == "grass": new_block = Grass()
+        # elif block_type == "leave": new_block = Leave()
+        # elif block_type == "wood": new_block = Wood()
+        # elif block_type == "sand": new_block = Sand()
+        # elif block_type == "glass": new_block = Glass()
+        # elif block_type == "tnt": new_block = Tnt()
         else:
             print("Block not found.")
             return
