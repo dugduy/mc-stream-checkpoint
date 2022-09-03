@@ -12,8 +12,7 @@ print("Hello from the server !")
 
 Server = UrsinaNetworkingServer("localhost", 25565)
 Easy = EasyUrsinaNetworkingServer(Server)
-state_dict=dict(load(open('../checkpoint.json')))
-Blocks = state_dict
+Blocks = load(open('../checkpoint.json'))
 
 
 def Explosion(position):
@@ -33,7 +32,7 @@ def Explosion(position):
 def destroy_block(Block_name):
     del Blocks[Block_name]
     # del state_dict[Block_name]
-    # dump(state_dict,open('../checkpoint.json','w'))
+    dump(Blocks,open('../checkpoint.json','w'))
     Easy.remove_replicated_variable_by_name(Block_name)
 
 # Spawn Block Function
@@ -54,14 +53,10 @@ def spawn_block(block_type, position,block_name=None, investigator = "client"):
 
     Blocks[block_name] = {
         "name" : block_name,
+        'type':block_type,
         "pos" : position
     }
-    state_dict[block_name]={
-        'name':block_name,
-        'type':block_type,
-        'pos':position
-    }
-    dump(state_dict,open('../checkpoint.json','w'))
+    dump(Blocks,open('../checkpoint.json','w'))
     i += 1
 
 # A little Hello
@@ -108,7 +103,7 @@ def MyPosition(Client, NewPos):
 
 
 # load world from checkpoint
-for k,v in state_dict.items():
+for k,v in Blocks.items():
     spawn_block(v['type'],v['pos'],k)
 
 while True:
