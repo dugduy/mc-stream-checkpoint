@@ -9,6 +9,12 @@ class Grass(Block):
         self.texture = "textures/grass_block.png"
         self.sound = "sounds/Grass_dig1.ogg"
 
+class Stone(Block):
+    def __init__(self, position = (0, 0, 0)):
+        super().__init__(position)
+        self.texture = "textures/stone_block.png"
+        self.sound = "sounds/Stone_hit3.ogg"
+
 class Leave(Block):
     def __init__(self, position = (0, 0, 0)):
         super().__init__(position)
@@ -20,6 +26,12 @@ class Wood(Block):
         super().__init__(position)
         self.texture = "textures/wood_block.png"
         self.sound = "sounds/Wood_dig2.ogg"
+
+class Brick(Block):
+    def __init__(self, position = (0, 0, 0)):
+        super().__init__(position)
+        self.texture = "textures/brick_block.png"
+        self.sound = "sounds/Stone_hit3.ogg"
 
 class Sand(Block):
     def __init__(self, position = (0, 0, 0)):
